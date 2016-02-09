@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block filfol %}
+{{path}}
+
+{% for x in d %}
+	
+	<tr>
+		<td>
+			<a href="{% url 'showDir' x%}">
+				<button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
+			</a>
+		</td>
+	</tr>
+
+{% endfor %}
+{% for x in f %}
+	
+	<tr>
+		<td>
+			
+				<button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
+			
+		</td>
+	</tr>
+
+{% endfor %}
+
+{% endblock %}
