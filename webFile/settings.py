@@ -25,7 +25,7 @@ SECRET_KEY = 'dferf#2-(#-j7q!0%_p5qn6gvybmj6qay29(iw0z6b+j4_czvw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
