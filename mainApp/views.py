@@ -10,14 +10,14 @@ def showDir(request, path=""):
 	x = os.path.join(settings.BASE_DIR, 'static')
 	
 	#create the full path and scan the entire directory
-	fullPath = x + '/'+ path
-	r, d, f = scanDir(fullPath)
+	absolutePath = x + '/'+ path
+	r, d, f = scanDir(absolutePath)
 	
 	#creates paths inside the home directory
 	d = joinPaths(path, d)
 	f = joinPaths(path, f)
 
-	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'path':path})
+	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path})
 
 #for joining the paths with the previous ones
 def joinPaths(prev, a):
