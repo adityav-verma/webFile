@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block formBlock %}
+{% block customScript %}
+	{% if user.is_authenticated %}
+	window.location="/"
+	{% endif %}
+{% endblock %}
+<form method="POST" action="">
+	<table class="table table-bordered">
+		{% csrf_token %}
+		{{ form.as_table }}
+
+		<tr><td></td><td><button type="submit" class="btn btn-success">Log In</button></td></tr>
+	</table>
+</form>
+{% endblock %}

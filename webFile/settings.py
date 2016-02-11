@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainApp',
+    'registration',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,3 +127,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+#registration redux
+LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/accounts/login/'
