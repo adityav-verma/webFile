@@ -18,6 +18,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-	url(r'^$', views.showDir, name="showDir"),
+	url(r'^$', views.home, name="homeFolder"),
 	url(r'^(?P<path>[0-9a-zA-Z\\/]+)/$', views.showDir, name="showDir"),
 ]

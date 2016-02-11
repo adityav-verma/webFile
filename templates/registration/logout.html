@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block formBlock %}
+<h2>Successfully Logged Out !!</h2>
+<a href="{% url 'auth_login' %}">
+	<button class="btn btn-large btn-primary">Log In</button>
+</a>
+{% endblock %}
