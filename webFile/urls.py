@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import mainApp
+from . import views
 
 urlpatterns = [
-	#url(r'^$',),
+	url(r'^$', views.index, name='index'),
 	url(r'^home/', include('mainApp.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]

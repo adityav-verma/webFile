@@ -2,12 +2,33 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import os
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
+def home(request):
+	username = request.user.username
+	pathToHome = os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home')
+	pathToUserHome = os.path.join(pathToHome, username)
+	l = os.listdir(pathToHome)
+	if username in l:
+		return showDir(request, "")
+	else:
+		setupHomeDir(pathToUserHome)
+		return showDir(request, "")
+
+#setting up home directory, making all necessary folders like documents, photos, etc
+def setupHomeDir(path):
+	os.mkdir(path)		#making home
+	dirsToMake = ['Documents', 'Music', 'Pictures', 'Videos']		#add trash feature
+	for x in dirsToMake:
+		os.mkdir(os.path.join(path, x))
+
 #lists the entire directory, by default shows the home directory
+@login_required
 def showDir(request, path=""):
-	x = os.path.join(settings.BASE_DIR, 'static')
+	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
 	
 	#create the full path and scan the entire directory
 	absolutePath = x + '/'+ path
