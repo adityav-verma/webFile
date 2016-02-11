@@ -33,12 +33,16 @@ def showDir(request, path=""):
 	#create the full path and scan the entire directory
 	absolutePath = x + '/'+ path
 	r, d, f = scanDir(absolutePath)
+	d.sort()
+	f.sort()
 	
 	#creates paths inside the home directory
 	d = joinPaths(path, d)
 	f = joinPaths(path, f)
 
-	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path})
+	temp = path.split("\/")
+
+	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
 
 #for joining the paths with the previous ones
 def joinPaths(prev, a):
