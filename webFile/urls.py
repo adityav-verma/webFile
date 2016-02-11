@@ -19,7 +19,7 @@ import mainApp
 from . import views
 
 urlpatterns = [
-	url(r'^$', views.index, name='index'),
+	url(r'^$', include('mainApp.urls')),
 	url(r'^home/', include('mainApp.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.simple.urls')),

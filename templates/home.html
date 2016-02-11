@@ -2,14 +2,11 @@
 
 
 {% block filfol %}
-{{parentPath}}
-
-
 <!-- for file explorer layout -->
-	<div class="row">
+<div class="row">
 	  	
-<!-- for bookmarks -->
-	  	<div class="col-sm-2">
+<!-- SIDEBAR BOOKMARKS -->
+<div class="col-sm-2">
   <ul class="nav nav-pills nav-stacked">
     <li class="active"><a href="#">Home</a></li>
     <li><a href="#">Documents</a></li>
@@ -17,41 +14,90 @@
     <li><a href="#">Videos</a></li>
     <li><a href="#">Music</a></li>
   </ul>
+</div>
+<!-- BOOKMARKS SIDEBAR ENDS -->
 
-	  	</div>
 	  	
-	  	<!--for files/folders  -->
-	  	<div class="col-sm-10">Files/Folder: home/
-	  		<table class="table table-bordered table-hover">
-	  			<!-- block for showing files/folders -->
+<!-- FILE MANAGER DIVISION-->
+<div class="col-sm-10">
+	<table class="table table-bordered table-hover table-responsive">
+	<!-- ROW FOR BREADCRUMBS -->
+		<tr><td>
+			<ol class="breadcrumb">
+			  <li><a href="#">Home</a></li>
+			  <li><a href="#">Documents</a></li>
+			  <li class="active">Data</li>
+			</ol>
+		</td></tr>
+
+	<!-- ROW FOR BREADCRUMBS ENDS -->
 
 
-{% for x in d %}
 	
-	<tr>
-		<td>
-			<a href="{% url 'showDir' x%}">
-				<button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
-			</a>
-		</td>
-	</tr>
+		<!-- FIRST ROW FOR TOOLBAR -->
+		<tr><td>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toolBar">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>                        
+		      </button>
+		    </div>
+		    <div class="collapse navbar-collapse" id="toolBar">
+		      <ul class="nav navbar-nav">
+		      <li><a><button class="btn btn-info" data-toggle="tooltip" title="Go Back"><span class="glyphicon glyphicon-arrow-left"></span></button></a></li>
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+		      	<li><a><button class="btn btn-info" data-toggle="tooltip" title="Create New Folder"><span class="glyphicon glyphicon-folder-close"></span></button></a></li>
+		      	<li><a><button class="btn btn-info" data-toggle="tooltip" title="Create New File" ><span class="glyphicon glyphicon-file"></span></button></a></li>
+		      </ul>	
+		    </div>
+		  </div>
+		</nav>
 
-{% endfor %}
-{% for x in f %}
-	
-	<tr>
-		<td>
-			
-				<button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
-			
-		</td>
-	</tr>
 
-{% endfor %}
-	  			
-	  		</table>
-	  			
-	  	</div>
-	</div>
+		</td></tr>
+
+	<!-- TOOLBAR ROW ENDS -->
+
+
+
+
+		{% for x in d %}
+
+		<tr>
+		<td>
+		<a href="{% url 'showDir' x%}">
+			<button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
+		</a>
+		</td>
+		</tr>
+
+		{% endfor %}
+		{% for x in f %}
+
+		<tr>
+		<td>
+
+			<button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
+
+		</td>
+		</tr>
+
+		{% endfor %}
+				
+	</table>
+			
+</div>
+
+
+</div>
 <!-- end of file explorer layout -->
+
+{% for x in temp %}
+
+	<p>{{x}}</p>
+{% endfor %}
 {% endblock %}
