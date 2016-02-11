@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainApp',
     'registration',
+    'crispy_forms'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -132,3 +133,6 @@ STATICFILES_DIRS = (
 #registration redux
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/accounts/login/'
+
+#django crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
