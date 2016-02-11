@@ -3,7 +3,18 @@
 
 {% block filfol %}
 {{parentPath}}
+<!-- for file explorer layout -->
+	<div class="row">
+	  	
+<!-- for bookmarks -->
+	  	<div class="col-sm-2">Bookmarks!!
 
+	  	</div>
+	  	
+	  	<!--for files/folders  -->
+	  	<div class="col-sm-10">Files/Folder: home/
+	  		<table class="table table-bordered table-hover">
+	  			<!-- block for showing files/folders -->
 
 
 {% for x in d %}
@@ -28,5 +39,10 @@
 	</tr>
 
 {% endfor %}
-
+	  			
+	  		</table>
+	  			
+	  	</div>
+	</div>
+<!-- end of file explorer layout -->
 {% endblock %}
