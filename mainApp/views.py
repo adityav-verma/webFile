@@ -40,9 +40,21 @@ def showDir(request, path=""):
 	d = joinPaths(path, d)
 	f = joinPaths(path, f)
 
-	temp = path.split("\/")
+	temp = path.split("/")
 
 	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
+
+
+#create a new folder in the specified location
+def createFolder(request):
+	folderName = request.POST.get('folderName')
+	folderPath = request.POST.get('folderPath')
+
+	username = request.user.username
+	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
+	path = os.path.join(x, folderPath)
+	os.mkdir(os.path.join(path, folderName))
+	return showDir(request, folderPath)
 
 #for joining the paths with the previous ones
 def joinPaths(prev, a):

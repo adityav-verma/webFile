@@ -19,5 +19,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.home, name="homeFolder"),
-	url(r'^(?P<path>[0-9a-zA-Z\\/]+)/$', views.showDir, name="showDir"),
+	url(r'^createFolder/$', views.createFolder, name="createFolder"),
+	url(r'^(?P<path>[0-9a-zA-Z\\/ ]+)/$', views.showDir, name="showDir"),
+
 ]
