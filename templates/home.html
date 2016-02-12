@@ -20,23 +20,22 @@
 	  	
 <!-- FILE MANAGER DIVISION-->
 <div class="col-sm-10">
-	<table class="table table-bordered table-hover table-responsive">
-	<!-- ROW FOR BREADCRUMBS -->
-		<tr><td>
-			<ol class="breadcrumb">
-			  <li><a href="#">Home</a></li>
-			  <li><a href="#">Documents</a></li>
-			  <li class="active">Data</li>
-			</ol>
-		</td></tr>
-
-	<!-- ROW FOR BREADCRUMBS ENDS -->
 
 
-	
-		<!-- FIRST ROW FOR TOOLBAR -->
-		<tr><td>
-		<nav class="navbar navbar-default">
+<!-- ROW FOR BREADCRUMBS -->
+	<tr><td>
+		<ol class="breadcrumb">
+		  <li><a href="#">Home</a></li>
+		  <li><a href="#">Documents</a></li>
+		  <li class="active">Data</li>
+		</ol>
+	</td></tr>
+
+<!-- ROW FOR BREADCRUMBS ENDS -->
+
+<!-- TOOLBAR STARTS HERE -->
+
+<nav class="navbar navbar-default">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toolBar">
@@ -46,23 +45,38 @@
 		      </button>
 		    </div>
 		    <div class="collapse navbar-collapse" id="toolBar">
-		      <ul class="nav navbar-nav">
-		      <li><a><button class="btn btn-info" data-toggle="tooltip" title="Go Back"><span class="glyphicon glyphicon-arrow-left"></span></button></a></li>
+		      <ul class="nav navbar-nav navbar-left">
+		      <li><button class="btn btn-info navbar-btn" data-toggle="tooltip" title="Go Back" onclick="goBack()"><span class="glyphicon glyphicon-arrow-left"></span> Go Back</button></li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	<li><a><button class="btn btn-info" data-toggle="tooltip" title="Create New Folder"><span class="glyphicon glyphicon-folder-close"></span></button></a></li>
-		      	<li><a><button class="btn btn-info" data-toggle="tooltip" title="Create New File" ><span class="glyphicon glyphicon-file"></span></button></a></li>
+
+		      <li>
+		      	<!-- New Folder inline Form -->
+		      	
+		      	<form class="navbar-form" data-toggle="tooltip" title="Create New Folder" method="POST" action="{% url 'createFolder' %}">
+		      		{% csrf_token %}
+		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter Folder Name" id="folderName" name="folderName"></div>
+
+		      		<div class="form-group"><input type="hidden" class="form-control" placeholder="Enter Folder Name" value="{{parentPath}}" id="folderPath" name="folderPath"></div>
+		      		<button type="submit" class="btn btn-success" id="newFolderID"><span class="glyphicon glyphicon-folder-close"></span></button> 
+		      	</form>
+		      	</li>
+		      	<li>
+		      	<!-- New File inline Form -->
+		      	
+		      	<form class="navbar-form" data-toggle="tooltip" title="Create New File">
+		      		{% csrf_token %}	
+		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter File Name"></div>
+		      		<button type="submit" class="btn btn-success" id="newFolderID" disabled="True"><span class="glyphicon glyphicon-file"></span></button> 
+		      	</form>
+		      	</li>
 		      </ul>	
 		    </div>
 		  </div>
 		</nav>
 
-
-		</td></tr>
-
-	<!-- TOOLBAR ROW ENDS -->
-
-
+<!-- TOOLBAR ENDS HERE -->
+	<table class="table table-bordered table-hover table-responsive">
 
 
 		{% for x in d %}
@@ -72,6 +86,21 @@
 		<a href="{% url 'showDir' x%}">
 			<button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
 		</a>
+		</td>
+		<td>
+						<!-- Single button -->
+			<div class="btn-group float-right">
+			  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    <span class="glyphicon glyphicon-menu-hamburger"></span>
+			  </button>
+			  <ul class="dropdown-menu">
+			    <li><a href="#">Action</a></li>
+			    <li><a href="#">Another action</a></li>
+			    <li><a href="#">Something else here</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="#">Separated link</a></li>
+			  </ul>
+			</div>
 		</td>
 		</tr>
 
@@ -89,7 +118,6 @@
 		{% endfor %}
 				
 	</table>
-			
 </div>
 
 
