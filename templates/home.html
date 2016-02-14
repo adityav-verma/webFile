@@ -51,24 +51,10 @@
 		      <ul class="nav navbar-nav navbar-right">
 
 		      <li>
-		      	<!-- New Folder inline Form -->
-		      	
-		      	<form class="navbar-form" data-toggle="tooltip" title="Create New Folder" method="POST" action="{% url 'createFolder' %}">
-		      		{% csrf_token %}
-		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter Folder Name" id="folderName" name="folderName"></div>
+		      	<!-- New Folder/File Trigger -->
+		      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFolderModal">New Folder</button>
+		      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFileModal">New File</button>
 
-		      		<div class="form-group"><input type="hidden" class="form-control" placeholder="Enter Folder Name" value="{{parentPath}}" id="folderPath" name="folderPath"></div>
-		      		<button type="submit" class="btn btn-success" id="newFolderID"><span class="glyphicon glyphicon-folder-close"></span></button> 
-		      	</form>
-		      	</li>
-		      	<li>
-		      	<!-- New File inline Form -->
-		      	
-		      	<form class="navbar-form" data-toggle="tooltip" title="Create New File">
-		      		{% csrf_token %}	
-		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter File Name"></div>
-		      		<button type="submit" class="btn btn-success" id="newFolderID" disabled="True"><span class="glyphicon glyphicon-file"></span></button> 
-		      	</form>
 		      	</li>
 		      </ul>	
 		    </div>
@@ -88,19 +74,11 @@
 		</a>
 		</td>
 		<td>
-						<!-- Single button -->
-			<div class="btn-group float-right">
-			  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			    <span class="glyphicon glyphicon-menu-hamburger"></span>
-			  </button>
-			  <ul class="dropdown-menu">
-			    <li><a href="#">Action</a></li>
-			    <li><a href="#">Another action</a></li>
-			    <li><a href="#">Something else here</a></li>
-			    <li role="separator" class="divider"></li>
-			    <li><a href="#">Separated link</a></li>
-			  </ul>
-			</div>
+			
+		<!-- Rename Button -->
+		<button class="btn btn-default" data-toggle="modal" data-target="#renameModal">Rename</button>
+		<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+
 		</td>
 		</tr>
 
@@ -128,4 +106,74 @@
 
 	<p>{{x}}</p>
 {% endfor %}
+
+
+
+<!-- MODALS -->
+<!-- New Folder MODAL -->
+<div class="modal fade" id="newFolderModal" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<!-- modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Create New Folder</h4>
+			</div>
+			<div class="modal-body">
+				<form class="inline-form" method="POST" action="{% url 'createFolder' %}" role="form">
+		      		{% csrf_token %}
+		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter Folder Name" id="folderName" name="folderName"></div>
+
+		      		<div class="form-group"><input type="hidden" class="form-control" placeholder="Enter Folder Name" value="{{parentPath}}" id="folderPath" name="folderPath"></div>
+		      		<button type="submit" class="btn btn-success" id="newFolderID">Create</button> 
+		      	</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- New File MODAL -->
+<div class="modal fade" id="newFileModal" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<!-- modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Create New File</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-inline" role="form">
+		      		{% csrf_token %}	
+		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter File Name"></div>
+		      		<button type="submit" class="btn btn-success" id="newFolderID" disabled="True">Create</button> 
+		      	</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Rename MODAL -->
+<div class="modal fade" id="renameModal" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<!-- modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Rename File</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form" method="POST" action="">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Enter New Name">
+					</div>
+					<button class="btn btn-primary" type="submit">Rename</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODALS END HERE -->
 {% endblock %}
