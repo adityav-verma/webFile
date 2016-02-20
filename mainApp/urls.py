@@ -22,7 +22,7 @@ urlpatterns = [
 	url(r'^createFolder/$', views.createFolder, name="createFolder"),
     url(r'^deleteFolder/(?P<folderName>[0-9a-zA-z\\/]+)/$', views.deleteFolder, name="deleteFolder"),
     url(r'^goBack/(?P<parentPath>[0-9a-zA-z\\/]+)/$', views.goBack, name="goBack"),
+    url(r'^showDirAjax/$', views.showDirAjax, name="showDirAjax"),
     url(r'^showDirAjax/(?P<path>[0-9a-zA-z\\/]+)/$', views.showDirAjax, name="showDirAjax"),
-	url(r'^(?P<path>[0-9a-zA-Z\\/ ]+)/$', views.showDir, name="showDir"),
 
 ]

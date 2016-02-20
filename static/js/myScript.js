@@ -1,14 +1,16 @@
+
+
 // Jquery functions
 $(document).ready(function(){
-
-	$("#newFolderID").hover(function() {
-		$("#newFolderFormID").toggle();
+	$('#showFilesButton').click(function(){
+		$("#fileManagerDiv").load("/home/showDirAjax"+"");
 	});
-
 });
 
 
+
 function goBack(parentPath){
+	if(parentPath != '')
 	$("#fileManagerDiv").load("/home/goBack/"+parentPath)
 }
 

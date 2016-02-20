@@ -47,6 +47,7 @@ def showDir(request, path=""):
 # just renders the fileManager div, useful for div reload after ajax calls
 @login_required
 def showDirAjax(request, path=""):
+	print "haan main yaha hu"
 	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
 
 	#create the full path and scan the entire directory
