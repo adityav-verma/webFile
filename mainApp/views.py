@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import os
+import os, shutil
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
@@ -29,13 +29,13 @@ def setupHomeDir(path):
 @login_required
 def showDir(request, path=""):
 	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
-	
+
 	#create the full path and scan the entire directory
 	absolutePath = x + '/'+ path
 	r, d, f = scanDir(absolutePath)
 	d.sort()
 	f.sort()
-	
+
 	#creates paths inside the home directory
 	d = joinPaths(path, d)
 	f = joinPaths(path, f)
@@ -44,8 +44,28 @@ def showDir(request, path=""):
 
 	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
 
+# just renders the fileManager div, useful for div reload after ajax calls
+@login_required
+def showDirAjax(request, path=""):
+	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
+
+	#create the full path and scan the entire directory
+	absolutePath = x + '/'+ path
+	r, d, f = scanDir(absolutePath)
+	d.sort()
+	f.sort()
+
+	#creates paths inside the home directory
+	d = joinPaths(path, d)
+	f = joinPaths(path, f)
+
+	temp = path.split("/")
+
+	return render(request, "showFileManager.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
+
 
 #create a new folder in the specified location
+@login_required
 def createFolder(request):
 	folderName = request.POST.get('folderName')
 	folderPath = request.POST.get('folderPath')
@@ -55,6 +75,13 @@ def createFolder(request):
 	path = os.path.join(x, folderPath)
 	os.mkdir(os.path.join(path, folderName))
 	return showDir(request, folderPath)
+
+
+@login_required
+def deleteFolder(request, folderName):
+	userHomePath = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
+	shutil.rmtree(os.path.join(userHomePath, folderName))
+	return showDirAjax(request)
 
 #for joining the paths with the previous ones
 def joinPaths(prev, a):
@@ -71,7 +98,7 @@ def scanDir(path):
 	root, dirs, files = list(), list(), list()
 
 	# break os.walk after one iteration
-	for r, d, f in os.walk(path):		
+	for r, d, f in os.walk(path):
 		dirs = d
 		files = f
 		root = r

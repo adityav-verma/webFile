@@ -1,0 +1,34 @@
+<table class="table table-bordered table-hover table-responsive">
+
+
+  {% for x in d %}
+
+  <tr>
+  <td>
+  <a href="{% url 'showDir' x%}">
+    <button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
+  </a>
+  </td>
+  <td>
+
+  <!-- Rename Button -->
+  <button class="btn btn-default" data-toggle="modal" data-target="#renameModal">Rename</button>
+  <button class="btn btn-danger" onclick="deleteFolder('{{x}}')"><span class="glyphicon glyphicon-trash"></span></button>
+
+  </td>
+  </tr>
+
+  {% endfor %}
+  {% for x in f %}
+
+  <tr>
+  <td>
+
+    <button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
+
+  </td>
+  </tr>
+
+  {% endfor %}
+
+</table>

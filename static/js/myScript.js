@@ -12,3 +12,8 @@ function goBack(){
 	window.history.back();
 }
 
+function deleteFolder(folderName) {
+	alert(folderName);
+	$("#fileManagerDiv").load("/home/deleteFolder/"+folderName);
+
+}
