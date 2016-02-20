@@ -2,9 +2,14 @@
 
 
 {% block filfol %}
+
+<div id="testDiv" class="">
+hahahah
+</div>
+
 <!-- for file explorer layout -->
 <div class="row">
-	  	
+
 <!-- SIDEBAR BOOKMARKS -->
 <div class="col-sm-2">
   <ul class="nav nav-pills nav-stacked">
@@ -17,7 +22,7 @@
 </div>
 <!-- BOOKMARKS SIDEBAR ENDS -->
 
-	  	
+
 <!-- FILE MANAGER DIVISION-->
 <div class="col-sm-10">
 
@@ -41,7 +46,7 @@
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toolBar">
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>                        
+		        <span class="icon-bar"></span>
 		      </button>
 		    </div>
 		    <div class="collapse navbar-collapse" id="toolBar">
@@ -56,12 +61,15 @@
 		      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFileModal">New File</button>
 
 		      	</li>
-		      </ul>	
+		      </ul>
 		    </div>
 		  </div>
 		</nav>
 
 <!-- TOOLBAR ENDS HERE -->
+
+<div id="fileManagerDiv">
+<!--  file manager div-->
 	<table class="table table-bordered table-hover table-responsive">
 
 
@@ -74,10 +82,10 @@
 		</a>
 		</td>
 		<td>
-			
+
 		<!-- Rename Button -->
 		<button class="btn btn-default" data-toggle="modal" data-target="#renameModal">Rename</button>
-		<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+		<button class="btn btn-danger" onclick="deleteFolder('{{x}}')"><span class="glyphicon glyphicon-trash"></span></button>
 
 		</td>
 		</tr>
@@ -94,8 +102,11 @@
 		</tr>
 
 		{% endfor %}
-				
+
 	</table>
+
+<div>
+
 </div>
 
 
@@ -125,7 +136,7 @@
 		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter Folder Name" id="folderName" name="folderName"></div>
 
 		      		<div class="form-group"><input type="hidden" class="form-control" placeholder="Enter Folder Name" value="{{parentPath}}" id="folderPath" name="folderPath"></div>
-		      		<button type="submit" class="btn btn-success" id="newFolderID">Create</button> 
+		      		<button type="submit" class="btn btn-success" id="newFolderID">Create</button>
 		      	</form>
 			</div>
 		</div>
@@ -144,9 +155,9 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-inline" role="form">
-		      		{% csrf_token %}	
+		      		{% csrf_token %}
 		      		<div class="form-group"><input type="text" class="form-control" placeholder="Enter File Name"></div>
-		      		<button type="submit" class="btn btn-success" id="newFolderID" disabled="True">Create</button> 
+		      		<button type="submit" class="btn btn-success" id="newFolderID" disabled="True">Create</button>
 		      	</form>
 			</div>
 		</div>
