@@ -83,6 +83,23 @@ def deleteFolder(request, folderName):
 	shutil.rmtree(os.path.join(userHomePath, folderName))
 	return showDirAjax(request)
 
+
+# go back one directory
+def goBack(request, parentPath):
+	if parentPath == "":
+		return showDirAjax(request)
+	x = parentPath.split("/")
+	backPath = ""
+	if len(x) == 1:
+		return showDirAjax(request)
+	for i in xrange(0, len(x)-1):
+		if i == (len(x)-2):
+			backPath = backPath + x[i]
+		else:
+			backPath = backPath + x[i] + "/"
+	print backPath
+	return showDirAjax(request, backPath)
+
 #for joining the paths with the previous ones
 def joinPaths(prev, a):
 	if prev == "":

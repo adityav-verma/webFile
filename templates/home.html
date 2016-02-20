@@ -37,71 +37,68 @@ hahahah
 	</td></tr>
 
 <!-- ROW FOR BREADCRUMBS ENDS -->
-
-<!-- TOOLBAR STARTS HERE -->
-
-<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toolBar">
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		    </div>
-		    <div class="collapse navbar-collapse" id="toolBar">
-		      <ul class="nav navbar-nav navbar-left">
-		      <li><button class="btn btn-info navbar-btn" data-toggle="tooltip" title="Go Back" onclick="goBack()"><span class="glyphicon glyphicon-arrow-left"></span> Go Back</button></li>
-		      </ul>
-		      <ul class="nav navbar-nav navbar-right">
-
-		      <li>
-		      	<!-- New Folder/File Trigger -->
-		      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFolderModal">New Folder</button>
-		      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFileModal">New File</button>
-
-		      	</li>
-		      </ul>
-		    </div>
-		  </div>
-		</nav>
-
-<!-- TOOLBAR ENDS HERE -->
-
 <div id="fileManagerDiv">
-<!--  file manager div-->
+	<!-- TOOLBAR STARTS HERE -->
+
+	<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toolBar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			    </div>
+			    <div class="collapse navbar-collapse" id="toolBar">
+			      <ul class="nav navbar-nav navbar-left">
+	            <li><button class="btn btn-info navbar-btn" onclick="goBack('{{parentPath}}')">Go Back</button></li>
+			      </ul>
+			      <ul class="nav navbar-nav navbar-right">
+
+			      <li>
+			      	<!-- New Folder/File Trigger -->
+			      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFolderModal">New Folder</button>
+			      		<button class="btn navbar-btn btn-success" data-toggle="modal" data-target="#newFileModal">New File</button>
+
+			      	</li>
+			      </ul>
+			    </div>
+			  </div>
+			</nav>
+
+	<!-- TOOLBAR ENDS HERE -->
+
+
+	<!--  file manager div-->
 	<table class="table table-bordered table-hover table-responsive">
 
+	  {% for x in d %}
 
-		{% for x in d %}
+	  <tr>
+	  <td>
+	    <button class="btn btn-default btn-warning" onclick="showDirAjax('{{x}}')">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
+	  </td>
+	  <td>
 
-		<tr>
-		<td>
-		<a href="{% url 'showDir' x%}">
-			<button class="btn btn-default btn-warning">	<span class="glyphicon glyphicon-folder-open"> {{x}}	</span>	</button>
-		</a>
-		</td>
-		<td>
+	  <!-- Rename Button -->
+	  <button class="btn btn-default" data-toggle="modal" data-target="#renameModal">Rename</button>
+	  <button class="btn btn-danger" onclick="deleteFolder('{{x}}')"><span class="glyphicon glyphicon-trash"></span></button>
 
-		<!-- Rename Button -->
-		<button class="btn btn-default" data-toggle="modal" data-target="#renameModal">Rename</button>
-		<button class="btn btn-danger" onclick="deleteFolder('{{x}}')"><span class="glyphicon glyphicon-trash"></span></button>
+	  </td>
+	  </tr>
 
-		</td>
-		</tr>
+	  {% endfor %}
+	  {% for x in f %}
 
-		{% endfor %}
-		{% for x in f %}
+	  <tr>
+	  <td>
 
-		<tr>
-		<td>
+	    <button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
 
-			<button class="btn btn-default btn-primary"><span class="glyphicon glyphicon-file"> {{x}}	</span></button>
+	  </td>
+	  </tr>
 
-		</td>
-		</tr>
-
-		{% endfor %}
+	  {% endfor %}
 
 	</table>
 

@@ -8,12 +8,15 @@ $(document).ready(function(){
 });
 
 
-function goBack(){
-	window.history.back();
+function goBack(parentPath){
+	$("#fileManagerDiv").load("/home/goBack/"+parentPath)
 }
 
 function deleteFolder(folderName) {
-	alert(folderName);
 	$("#fileManagerDiv").load("/home/deleteFolder/"+folderName);
 
+}
+
+function showDirAjax(path){
+	$("#fileManagerDiv").load('/home/showDirAjax/'+path);
 }
