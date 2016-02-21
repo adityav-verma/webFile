@@ -61,8 +61,19 @@ def showDirAjax(request, path=""):
 	f = joinPaths(path, f)
 
 	temp = path.split("/")
+	count = 1
+	folderLinks = list()
+	folderNames = list()
+	link1 = ""
+	while count <= len(temp):
+		for i in xrange(0, count):
+			link1 = link1 + temp[i] + "/"
 
-	return render(request, "showFileManager.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
+		folderLinks.append(link1)
+		folderNames.append(temp[count -1])
+		count = count + 1
+		link1 = ""
+	return render(request, "showFileManager.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'folderLinks':folderLinks})
 
 
 #create a new folder in the specified location
