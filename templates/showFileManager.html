@@ -1,3 +1,12 @@
+
+<!-- ROW FOR BREADCRUMBS -->
+<ol class="breadcrumb">
+{% for x in folderLinks %}
+	<li class="btn btn-default" onclick="showDirAjax('{{x}}')">{{x}}</li>
+{% endfor %}
+</ol>
+<!-- ROW FOR BREADCRUMBS ENDS -->
+
 <!-- TOOLBAR STARTS HERE -->
 
 <nav class="navbar navbar-default">
