@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import os
+import os, shutil
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
@@ -29,13 +29,13 @@ def setupHomeDir(path):
 @login_required
 def showDir(request, path=""):
 	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
-	
+
 	#create the full path and scan the entire directory
 	absolutePath = x + '/'+ path
 	r, d, f = scanDir(absolutePath)
 	d.sort()
 	f.sort()
-	
+
 	#creates paths inside the home directory
 	d = joinPaths(path, d)
 	f = joinPaths(path, f)
@@ -44,8 +44,40 @@ def showDir(request, path=""):
 
 	return render(request, "home.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'temp':temp})
 
+# just renders the fileManager div, useful for div reload after ajax calls
+@login_required
+def showDirAjax(request, path=""):
+	print "haan main yaha hu"
+	x = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
+
+	#create the full path and scan the entire directory
+	absolutePath = x + '/'+ path
+	r, d, f = scanDir(absolutePath)
+	d.sort()
+	f.sort()
+
+	#creates paths inside the home directory
+	d = joinPaths(path, d)
+	f = joinPaths(path, f)
+
+	temp = path.split("/")
+	count = 1
+	folderLinks = list()
+	folderNames = list()
+	link1 = ""
+	while count <= len(temp):
+		for i in xrange(0, count):
+			link1 = link1 + temp[i] + "/"
+
+		folderLinks.append(link1)
+		folderNames.append(temp[count -1])
+		count = count + 1
+		link1 = ""
+	return render(request, "showFileManager.html", {'r':r, 'd':d, 'f':f, 'parentPath':path, 'folderLinks':folderLinks})
+
 
 #create a new folder in the specified location
+@login_required
 def createFolder(request):
 	folderName = request.POST.get('folderName')
 	folderPath = request.POST.get('folderPath')
@@ -55,6 +87,30 @@ def createFolder(request):
 	path = os.path.join(x, folderPath)
 	os.mkdir(os.path.join(path, folderName))
 	return showDir(request, folderPath)
+
+
+@login_required
+def deleteFolder(request, folderName):
+	userHomePath = os.path.join(os.path.join(os.path.join(settings.BASE_DIR, 'static'), 'home'), request.user.username)
+	shutil.rmtree(os.path.join(userHomePath, folderName))
+	return showDirAjax(request)
+
+
+# go back one directory
+def goBack(request, parentPath):
+	if parentPath == "":
+		return showDirAjax(request)
+	x = parentPath.split("/")
+	backPath = ""
+	if len(x) == 1:
+		return showDirAjax(request)
+	for i in xrange(0, len(x)-1):
+		if i == (len(x)-2):
+			backPath = backPath + x[i]
+		else:
+			backPath = backPath + x[i] + "/"
+	print backPath
+	return showDirAjax(request, backPath)
 
 #for joining the paths with the previous ones
 def joinPaths(prev, a):
@@ -71,7 +127,7 @@ def scanDir(path):
 	root, dirs, files = list(), list(), list()
 
 	# break os.walk after one iteration
-	for r, d, f in os.walk(path):		
+	for r, d, f in os.walk(path):
 		dirs = d
 		files = f
 		root = r

@@ -1,14 +1,24 @@
+
+
 // Jquery functions
 $(document).ready(function(){
-
-	$("#newFolderID").hover(function() {
-		$("#newFolderFormID").toggle();
+	$('#showFilesButton').click(function(){
+		$("#fileManagerDiv").load("/home/showDirAjax"+"");
 	});
-
 });
 
 
-function goBack(){
-	window.history.back();
+
+function goBack(parentPath){
+	if(parentPath != '')
+	$("#fileManagerDiv").load("/home/goBack/"+parentPath)
 }
 
+function deleteFolder(folderName) {
+	$("#fileManagerDiv").load("/home/deleteFolder/"+folderName);
+
+}
+
+function showDirAjax(path){
+	$("#fileManagerDiv").load('/home/showDirAjax/'+path);
+}
